@@ -21,13 +21,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.navigation.NavController
 import com.example.loginfirebaseapp.components.BottomButtons
 import com.example.loginfirebaseapp.components.TopTexts
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun RegisterScreen(
-
+    navController: NavController
 ) {
     val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     Box(
@@ -183,7 +184,7 @@ fun RegisterScreen(
                         mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful && password != password) {
-                                    // goes to main screen
+                                    navController.navigate("user_screen")
                                 } else {
                                     Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
                                 }
@@ -192,15 +193,9 @@ fun RegisterScreen(
 
                 },
                 onClickOther = {
-                    //  loginScreen()
+                    navController.navigate("login_screen")
                 }
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun RegisterPreview() {
-    RegisterScreen()
 }

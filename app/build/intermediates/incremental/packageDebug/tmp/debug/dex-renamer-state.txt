@@ -1,12 +1,12 @@
-#Mon Aug 23 16:30:49 MSK 2021
-path.4=10/classes.dex
-path.3=classes2.dex
-path.2=4/classes.dex
+#Wed Aug 25 16:59:55 MSK 2021
+path.4=classes2.dex
+path.3=4/classes.dex
+path.2=10/classes.dex
 path.1=0/classes.dex
 path.0=classes.dex
-base.4=C\:\\Users\\jawa0\\AndroidStudioProjects\\LoginFirebaseApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
-base.3=C\:\\Users\\jawa0\\AndroidStudioProjects\\LoginFirebaseApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.2=C\:\\Users\\jawa0\\AndroidStudioProjects\\LoginFirebaseApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\4\\classes.dex
+base.4=C\:\\Users\\jawa0\\AndroidStudioProjects\\LoginFirebaseApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.3=C\:\\Users\\jawa0\\AndroidStudioProjects\\LoginFirebaseApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\4\\classes.dex
+base.2=C\:\\Users\\jawa0\\AndroidStudioProjects\\LoginFirebaseApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
 base.1=C\:\\Users\\jawa0\\AndroidStudioProjects\\LoginFirebaseApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.0=C\:\\Users\\jawa0\\AndroidStudioProjects\\LoginFirebaseApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 renamed.3=classes4.dex

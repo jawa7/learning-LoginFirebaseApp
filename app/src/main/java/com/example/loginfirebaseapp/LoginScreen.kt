@@ -22,15 +22,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.loginfirebaseapp.components.BottomButtons
 import com.example.loginfirebaseapp.components.TopTexts
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    navController: NavController
+) {
 
     val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
 
     Box(
         modifier = Modifier
@@ -131,28 +133,25 @@ fun LoginScreen() {
                     if (!errorStateEmail && !errorStatePassword) {
                         mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener { task ->
-//                        if (task.isSuccessful) {
-//
-//                        } else {
-//                            Toast.makeText(
-//                                context,
-//                                task.exception?.message,
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
+                        if (task.isSuccessful) {
+                            navController.navigate("user_screen")
+                        } else {
+                            Toast.makeText(
+                                context,
+                                task.exception?.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                             }
                     }
                 },
                 onClickOther = {
-                    //  loginScreen()
+                    navController.popBackStack(
+                        "register_screen",
+                        inclusive = false
+                    )
                 }
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun LoginPreview() {
-    LoginScreen()
 }
