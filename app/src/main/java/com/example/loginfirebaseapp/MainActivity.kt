@@ -6,10 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.ui.ExperimentalComposeUiApi
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
+@ExperimentalComposeUiApi
 class MainActivity : AppCompatActivity() {
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +49,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 composable(
                     "login_screen",
-
                     ) {
                     LoginScreen(
                         navController = navController
@@ -55,11 +56,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 composable(
                     "user_screen",
-
                     ) {
-                    UserScreen(
-                        navController = navController
-                    )
+                    UserScreen()
                 }
             }
         }

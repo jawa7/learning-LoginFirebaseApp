@@ -3,6 +3,7 @@ package com.example.loginfirebaseapp
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,10 +14,15 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -27,6 +33,7 @@ import com.example.loginfirebaseapp.components.BottomButtons
 import com.example.loginfirebaseapp.components.TopTexts
 import com.google.firebase.auth.FirebaseAuth
 
+@ExperimentalComposeUiApi
 @Composable
 fun LoginScreen(
     navController: NavController
@@ -46,7 +53,9 @@ fun LoginScreen(
                 )
             )
     ) {
-        Column {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
 
             var email by rememberSaveable { mutableStateOf("") }
             var password by rememberSaveable { mutableStateOf("") }
@@ -58,11 +67,10 @@ fun LoginScreen(
 
             val context = LocalContext.current
 
+            val (focusRequester) = FocusRequester.createRefs()
+            val keyboardController = LocalSoftwareKeyboardController.current
+
             TopTexts(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp)
-                    .weight(0.15f),
                 mainText = "Login Firebase App",
                 otherText = "Log Into Your Account!"
             )
@@ -70,15 +78,18 @@ fun LoginScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .weight(0.7f)
-                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+                    .fillMaxSize()
             ) {
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
                     label = { Text("Email") },
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next
+                    ),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         textColor = Color.White,
                         cursorColor = Color.White,
@@ -86,7 +97,12 @@ fun LoginScreen(
                         focusedLabelColor = Color.Yellow
                     ),
                     leadingIcon = { Icon(Icons.Filled.Email, "") },
-                    isError = errorStateEmail
+                    isError = errorStateEmail,
+                    keyboardActions = KeyboardActions(
+                        onNext = { focusRequester.requestFocus() }
+                    ),
+                    modifier = Modifier.focusRequester(focusRequester)
+
                 )
                 OutlinedTextField(
                     value = password,
@@ -94,7 +110,10 @@ fun LoginScreen(
                     label = { Text("Password") },
                     singleLine = true,
                     visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         textColor = Color.White,
                         cursorColor = Color.White,
@@ -118,14 +137,18 @@ fun LoginScreen(
                     leadingIcon = {
                         Icon(Icons.Filled.Lock, "")
                     },
-                    isError = errorStatePassword
+                    isError = errorStatePassword,
+                    keyboardActions = KeyboardActions(
+                        onDone = { keyboardController?.hide() }
+                    ),
+                    modifier = Modifier.focusRequester(focusRequester)
+
                 )
             }
             BottomButtons(
                 mainButton = "Login",
                 otherButton = "Signup",
                 onClickMain = {
-
                     if (email.isEmpty() || email.length < 5 || !email.contains("@")) errorStateEmail =
                         true
                     if (password.isEmpty() || password.length < 8) errorStatePassword = true

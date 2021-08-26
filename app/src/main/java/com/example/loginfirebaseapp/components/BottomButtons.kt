@@ -1,8 +1,6 @@
 package com.example.loginfirebaseapp.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -20,14 +18,15 @@ fun BottomButtons(
     onClickOther: () -> Unit,
 ) {
     Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(bottom = 24.dp)
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(bottom = 18.dp)
+            .fillMaxSize()
     ) {
         Button(
             onClick = onClickMain,
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
                 .fillMaxWidth(0.6f)
         ) {
             Text(mainButton)
@@ -35,7 +34,6 @@ fun BottomButtons(
         TextButton(
             onClick = onClickOther,
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
         ) {
             Text(
                 otherButton,

@@ -1,9 +1,6 @@
 package com.example.loginfirebaseapp.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,13 +11,15 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TopTexts(
-    modifier: Modifier,
     mainText: String,
     otherText: String,
 ) {
     Column(
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(top = 18.dp)
+            .fillMaxSize()
     ) {
         Text(
             mainText,
